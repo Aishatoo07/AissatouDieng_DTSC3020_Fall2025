@@ -1,0 +1,154 @@
+main.cpp
+#include "Artist.h"
+#include "Artwork.h"
+#include <iostream>
+#include <string>
+using namespace std;
+
+
+int main() {
+   string userTitle, userArtistName;
+   int yearCreated, userBirthYear, 
+userDeathYear;
+getline(cin, userArtistName);
+   getline(cin, userTitle);
+   cin >> userBirthYear;
+   cin >> userDeathYear;
+   cin >> yearCreated;
+Artist userArtist =  Artist(userArtistName,
+ userBirthYear, userDeathYear);
+
+
+   Artwork newArtwork = Artwork(userTitle, yearCreated,
+ userArtist);
+ newArtwork.PrintInfo();
+}
+Artwork.h
+#ifndef ARTWORKH
+#define ARTWORKH
+#include "Artist.h"
+class Artwork{
+   public:
+      Artwork();// default const
+  Artwork(string title, int yearCreated, Artist artist);
+            //parameterized constructor
+            //getfunctions
+   string GetTitle() const;
+int GetYearCreated()const;
+            //printinfo func
+  void PrintInfo()const;
+    private:
+      string title;
+      int yearCreated;
+      Artist artist;
+};
+#endif
+	Artwork.cpp
+#include "Artwork.h"
+#include <iostream>
+// Default cons
+Artwork::Artwork() {
+    title = "unknown";
+    yearCreated = -1;
+    artist = Artist();
+}
+// Parameterized constructor if class mem& parameters same use this
+Artwork::Artwork(string title, int yearCreated, Artist artist) {
+    this->title = title;
+    this->yearCreated = yearCreated;
+    this->artist = artist;
+}
+// Get functions
+string Artwork::GetTitle() const {
+    return title;
+}
+
+
+int Artwork::GetYearCreated() const {
+    return yearCreated;
+}
+
+
+// PrintInfo function
+void Artwork::PrintInfo() const {
+    artist.PrintInfo();
+    cout << "Title: " << title << ", " << yearCreated << endl;
+}
+
+
+Artist.h
+#ifndef ARTISTH
+#define ARTISTH
+
+
+#include <string>
+using namespace std;
+
+
+class Artist{
+   public:
+Artist();
+Artist(string artistName, int birthYear, int deathYear);
+
+
+      string GetName() const;
+ int GetBirthYear() const;
+int GetDeathYear() const;
+void PrintInfo() const;
+   
+   private:
+      //  artistName, birthYear, deathYear
+string artistName;
+      int birthYear;
+      int deathYear;
+}; #endif
+                       Artist.cpp
+#include "Artist.h"
+#include <iostream>
+#include <string>
+using namespace std;
+Artist::Artist() {
+    artistName = "unknown";
+    birthYear = -1;
+    deathYear = -1;
+}// TODO: Define default constructor
+
+
+
+
+Artist::Artist(string artistName, int birthYear, int deathYear) {
+    this->artistName = artistName;
+    this->birthYear = birthYear;
+    this->deathYear = deathYear;
+}
+// 2ndconstructor to initialize
+//       private fields (artistName, birthYear, deathYear)
+string Artist::GetName() const {
+    return artistName;
+}
+
+
+int Artist::GetBirthYear() const {
+    return birthYear;
+}
+
+
+int Artist::GetDeathYear() const {
+    return deathYear;
+}//GetName(), GetBirthYear(), GetDeathYear()
+
+
+void Artist::PrintInfo() const {
+    cout << "Artist: " << artistName << " ";
+   
+    if (birthYear >= 0 && deathYear >= 0) {
+ cout << "(" << birthYear << " to " << deathYear << ")";
+    } else if (birthYear >= 0 && deathYear < 0) {
+        cout << "(" << birthYear << " to present)";
+    } else {
+        cout << "(unknown)";
+    }
+
+
+    cout << endl;
+
