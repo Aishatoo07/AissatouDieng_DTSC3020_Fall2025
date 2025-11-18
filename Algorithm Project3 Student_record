@@ -1,0 +1,78 @@
+"Algorithm Project 3
+
+ Aissatou Dieng & Nhan Vu 
+
+Let's start off by initializing the process. 
+Let's set a called "NUMBER_OF_TESTS" to 5 for global use, in our code. 
+Create a list of choices for the menu with options, like Add Item, Remove Item, Show Items, Find, Outcome, and Exit. 
+Define a structure called "Student" with the following components; 
+
+Full name (please provide your name as a single string). 
+Unique identifier, for the student, known as StudentID.
+The total number of exams the student has completed.
+Storing test scores in an array.
+The typical value is derived from all the test scores.
+
+Present the menu to the user, with these choices available; 
+
+Record a student's information, in the system. 
+Delete a student's information, from the records. 
+Please show me all the records. 
+Please locate a student using their identification number. 
+Save the outcomes to a document. 
+Stop the software now. 
+Prompt the user to select an option to validate the input provided and utilize a loop to manage any entries. 
+Utilize a switch case structure, with cases determined by enumeration constants; 
+Call the function for every choice, on the menu. 
+If the user chooses to quit make sure to leave with a message. 
+Function to include a student, in the system. AddStudent
+Please ask the user to provide; 
+
+Please provide me with the student's name for our records. 
+Student identification number. 
+The amount of exams that have been completed. 
+Storing test scores in an array that is allocated dynamically.
+Calculate the mean of the test results. 
+Append the student's information, to the student data file named student.dat. 
+Function to delete student records
+Enter the StudentID as input. 
+Read the information, from all student files stored in the student.dat file. Store it in a flexible array structure. 
+Looking for the corresponding StudentID; 
+
+If the record is located in the system's database then remove it. Make sure to update the file accordingly. 
+If the item is not located, inform the user. 
+Update the records, in the student.dat file. Save the changes. 
+Function to show data, on the screen labeled as "display."
+Step 2; Import all data, from the student.dat file into a flexible array structure. 
+Present every entry, in an arranged table format; 
+
+Please provide the input text that needs to be paraphrased.
+Functionality, for conducting searches
+Please provide the input so I can rewrite it in a human manner for you to use it further. 
+Search student.dat file to find a record; 
+
+If located; exhibit the information of the student. 
+If it's not located,\inform the user. 
+A function called "exportResults"
+Open the file student.dat to read data and open averages.dat to write data. 
+For every student's information do the following; 
+
+Calculate the sum of all test scores. 
+Please locate the score using the function findMinimum. 
+Deduct the number from the sum and find the average value. 
+Please save the StudentID and average in the averages.dat file. 
+Function to locate the value in a set of numbers. FindMinimum
+Receive a list of exam grades and their quantity. 
+If there are, more than five tests conducted in the assessment process the outcome should be zero. 
+If there are 5 tests to conduct in total locate the value and report it back. 
+
+Function Supporter Method, for retrieving numbers
+Please provide me with the number of records, in the student.dat file. 
+
+
+Split the code into three files; 
+
+euidProject_main.cpp houses the function. 
+The file euidProject_func.cpp includes all the functions needed for the project implementation. 
+The euidProject_header.h file includes parameters as well, as structure definitions and declarations of functions."
+
