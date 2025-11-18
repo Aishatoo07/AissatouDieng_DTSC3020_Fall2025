@@ -1,0 +1,138 @@
+ItemToPurchase.h
+#ifndef ITEM_TO_PURCHASE_H
+#define ITEM_TO_PURCHASE_H
+#include <iostream>
+#include <string>
+using namespace std;
+
+
+class ItemToPurchase{
+
+
+        private:
+                string itemName;
+                double itemPrice;
+                int itemQuantity;
+        public:
+                ItemToPurchase();//default constructor
+                ItemToPurchase(string name,double price, int quantity);
+                //parameterelized const
+
+
+                ~ItemToPurchase();//destructor
+                //mutator and accessors set/get
+        void SetName(string name);
+        void SetPrice(double price);
+        void SetQuantity (int quantity);
+
+
+        string GetName()const;
+        double GetPrice() const;
+        int GetQuantity ()const;
+        void print();
+
+
+};
+#endif
+ItemToPurchase.cpp
+#include "ItemToPurchase.h"
+
+
+ItemToPurchase::ItemToPurchase(){
+        itemName= "None";
+        itemPrice= 0;
+        itemQuantity= 0;
+}//default constractor
+
+
+ItemToPurchase::ItemToPurchase(string name, double price, int quantity){
+        itemName= name;
+        itemPrice= price;
+        itemQuantity= quantity;
+}//overloaded constructor or 2nd cons
+
+
+ItemToPurchase::~ItemToPurchase(){
+        cout<<"Destructor Called"<<endl;
+}//Destructor
+
+
+                //Mutator & Accessors Set/Get
+        void ItemToPurchase::SetName(string name){
+                itemName = name;
+}
+        void ItemToPurchase::SetPrice(double price){
+                itemPrice = price;
+}
+        void ItemToPurchase::SetQuantity(int quantity){
+                itemQuantity = quantity;
+}
+string ItemToPurchase::GetName()const{
+                return itemName;
+}
+double ItemToPurchase::GetPrice()const{
+                return itemPrice;
+}
+int ItemToPurchase::GetQuantity()const{
+                return itemQuantity;
+}
+void ItemToPurchase::print(){
+                cout<<itemName<<" "<<itemQuantity<<" @ $"<<itemPrice*itemQuantity<<endl;
+}
+	ItemToPurchaseMain.cpp
+
+
+
+
+
+
+#include "ItemToPurchase.h"
+int main(){
+        int numItem;
+        cout<<"How Many Items?";
+        cin>> numItem;
+        cin.ignore();
+        //dynamically allocate an array ofitemToPurchase objects
+        ItemToPurchase* items= new ItemToPurchase[numItem];
+string name;
+double price;
+int quantity;
+double total = 0;
+
+
+//collect info from user:
+        for(int i = 0; i<numItem; i++){
+        cout<<"Item #"<<i+1<<endl;
+        cout<<" Enter the item name: ";
+        getline(cin, name);
+        cout<<"Enter the unit price: ";
+        cin>>price;
+        cout<<"Enter the quantity: ";
+        cin>>quantity;
+        cin.ignore();
+
+
+        items[i].SetName(name);
+        items[i].SetPrice(price);
+        items[i].SetQuantity(quantity);
+}
+//display the total cost
+        for (int i = 0; i<numItem; i++){
+        items[i].print();
+        total +=items[i].GetPrice()*items[i].GetQuantity();
+}
+cout<<"Total: $"<<total<<endl;
+delete[]items;
+
+
+
+return 0;
+}
+
+
+
+
+
+
+
+
