@@ -1,0 +1,173 @@
+#ifndef PROJECT3_H
+#define PROJECT3_H
+
+#include "Account.h"
+#include <iostream>
+using namespace std;
+
+// Define the node for the linked list
+struct AccountNode {
+    Account account;
+    AccountNode* next;
+
+    AccountNode(const Account& acc) : account(acc), next(nullptr) {}
+};
+
+// Function prototypes
+void displayHeader();
+void displayMenu();
+void openAccount(AccountNode*& head);
+
+void depositToAccount(AccountNode* head);
+void withdrawFromAccount(AccountNode* head);
+
+void printAccounts(AccountNode* head);
+Account* findAccount(AccountNode* head, int accNumber);
+
+void deleteAllAccounts(AccountNode*& head);
+
+#endif
+
+#include "project3.h"
+#include <iomanip>
+
+void displayHeader() {
+    cout << "+ +\n"
+         << "| Computer       Science and Engineering |\n"
+         << "| CSCE 1040 - Computer Programming II |\n"
+         << "| Ad1620       aissatoudieng@my.unt.edu |\n"
+         << "+ +\n";
+}
+
+void displayMenu() {
+    cout << "+ +\n"
+         << "| Enter account selection |\n"
+         << "| 1 : Open new account |\n"
+         << "| 2 : Deposit into account |\n"
+         << "| 3 : Withdraw from account |\n"
+         << "| 4 : Print a list of all accounts |\n"
+         << "| 5 : End transaction (Exit) |\n"
+         << "+ +\n> ";
+}
+
+Account* findAccount(AccountNode* head, int accNumber) {
+    while (head) {
+        if (head->account.getAccountNumber() == accNumber)
+            return &(head->account);
+        head = head->next;
+    }
+    return nullptr;
+}
+
+void openAccount(AccountNode*& head) {
+    string name;
+    float deposit;
+    cout << "Enter customer account name: ";
+    cin.ignore();
+    getline(cin, name);
+    cout << "Enter initial deposit amount: $ ";
+    cin >> deposit;
+
+    Account newAcc(name, deposit);
+    AccountNode* newNode = new AccountNode(newAcc);
+    newNode->next = head;
+    head = newNode;
+
+    cout << "Account opened: " << newAcc.getAccountNumber()
+         << " --- " << newAcc.getName() << " : $"
+         << fixed << setprecision(2) << newAcc.getBalance() << endl;
+}
+
+void depositToAccount(AccountNode* head) {
+    int accNum;
+    float deposit;
+    cout << "Enter account number: ";
+    cin >> accNum;
+
+    Account* acc = findAccount(head, accNum);
+    if (!acc) {
+        cout << "Account number " << accNum << " not found.\n";
+        return;
+    }
+
+    cout << "Enter deposit amount: $";
+    cin >> deposit;
+    acc->deposit(deposit);
+    cout << "Deposit successful. New balance: $"
+         << fixed << setprecision(2) << acc->getBalance() << endl;
+}
+
+void withdrawFromAccount(AccountNode* head) {
+    int accNum;
+    float amount;
+    cout << "Enter account number: ";
+    cin >> accNum;
+
+    Account* acc = findAccount(head, accNum);
+    if (!acc) {
+        cout << "Account number " << accNum << " not found.\n";
+        return;
+    }
+
+    cout << "Enter withdrawal amount: $";
+    cin >> amount;
+
+    if (!acc->withdraw(amount)) {
+        cout << "Insufficient funds.\n";
+    } else {
+        cout << "Withdrawal successful. New balance: $"
+             << fixed << setprecision(2) << acc->getBalance() << endl;
+    }
+}
+
+void printAccounts(AccountNode* head) {
+    if (!head) {
+        cout << "No accounts available.\n";
+        return;
+    }
+
+    cout << "+ +\n| Acct Number | Name         | Balance   |\n+ +\n";
+    while (head) {
+        head->account.displayAccount();
+        head = head->next;
+    }
+    cout << "+ +\n";
+}
+
+void deleteAllAccounts(AccountNode*& head) {
+    while (head) {
+        AccountNode* temp = head;
+        head = head->next;
+        delete temp;
+    }
+}
+
+int main() {
+    AccountNode* head = nullptr;
+    int choice;
+
+    displayHeader();
+
+    do {
+        displayMenu();
+        cin >> choice;
+
+        switch (choice) {
+            case 1: openAccount(head); break;
+            case 2: depositToAccount(head); break;
+            case 3: withdrawFromAccount(head); break;
+            case 4: printAccounts(head); break;
+            case 5:
+                cout << "Thank you! Goodbye.\n";
+                deleteAllAccounts(head); // clean up
+                break;
+            default:
+                cout << "Invalid selection. Please try again.\n";
+        }
+    } while (choice != 5);
+
+    return 0;
+}
+
+
+
